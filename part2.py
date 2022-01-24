@@ -68,7 +68,7 @@ for info in d.values():
     actionChains.double_click(laimagen).perform()    
     #driver.switch_to.default_content()
     save_button = driver.find_element(By.XPATH, "//button[text()='Save']").click()    
-    time.sleep(10)
+    time.sleep(6)
 
 #verify if the site has the correct information uploaded
 driver.get(cms_site)
@@ -82,14 +82,15 @@ for person in employees:
     pos = person.find_element(By.XPATH, "./dd[@class='title']").get_attribute('innerText')
     email = person.find_element(By.XPATH, "./dd[@class='email']").get_attribute('innerText')
     email_addres = email.replace("\n", "")
-    if email_addres == '\n' or '':
+    if email_addres == '\n' or ' ':
         email_addres = 'no email present'        
     phone = person.find_element(By.XPATH, "./dd[@class='phone']").get_attribute('innerText')
-    if phone == '\n' or '':
-        phone = 'no phone present'
+    if phone == '\n' or ' ':
+        phone = 'no telephone present'
     bio = person.find_element(By.XPATH, "./dd[@class='bio']/p").get_attribute('innerText')
     data2[e2] = {'name': name, 'jobTitle':pos, 'description': bio, 'email': email_addres, 'phone': phone}
     e2=e2+1
+    
 
 for x_values, y_values in zip(d.values(), data2.values()):
 
@@ -97,7 +98,6 @@ for x_values, y_values in zip(d.values(), data2.values()):
         print('Empleado:' + x_values['name'] + 'tiene toda la informacion correcta') 
     else:
         print('Empleado:' + x_values['name'] + 'tiene datos incocistentes, por favor verificar la informacion')    
-    # print(y_values)
 
 
 driver.quit()
